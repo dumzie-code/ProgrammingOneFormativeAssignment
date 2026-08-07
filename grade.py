@@ -14,10 +14,7 @@ class Homework(Assignment):
 class Exam(Assignment):
     pass
 
-class pet:
-    pass
-
-
+pass
 
 
 
