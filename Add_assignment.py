@@ -18,6 +18,8 @@ class Assignment:
         Assignment.number_of_Assignment+=1
         print("Assignment added")
         Assignment.assignment.append(self)
+        print()
+        
     @classmethod
     def create_new(cls):
         subject=input("Enter a subject: ")
@@ -27,9 +29,7 @@ class Assignment:
         due_date=input("Enter the due date(YYYY-MM-DD): ")
         type=cls.__name__
         return cls(subject,title,score,max_score,due_date,type)
-    # def calculate_percent(self):
-    #     overall_average+=1
-    #     print(f"You are overall percentage is this assignment is {(self.score/self.max_score)*100}")
+    
     def calculate_percent(self):
             return(self.score/self.max_score*100)
                     
