@@ -5,7 +5,7 @@ from datetime import datetime
 
 
 def filter_by_subject():
-    subject=input('Enter a subject')
+    subject=input('Enter a subject: ')
     for assignment in Assignment.assignment:
         if assignment.subject==subject.lower().strip():
             print(f"Filtered by {subject}")

@@ -1,5 +1,8 @@
 from Add_assignment import Assignment
 assignment=[]
+number_of_Assignment=0    
+
+
 def overall_average():
        # Overall average
         total_grade=0
@@ -24,19 +27,37 @@ def overall_average():
             count=0 
             for assignment in Assignment.assignment:
                 
-                if assignment.subject==Subject.lower().strip():
+                if assignment.subject.lower().strip()==Subject.lower().strip():
                     grade= grade+assignment.calculate_percent()
                     count+=1
-        Average=grade/count
-        print("Your per subject average grade is:" )
-        print(f" {Subject} :{Average}")
+            if count > 0:
+                Average=grade/count
+                print(f"Your per subject average grade in {Subject} is:" )
+                print(f"{Subject}:{Average}")
+        #highest scoring assignment
+        if Assignment.number_of_Assignment==0:
+            print("No assignemnt to evaluate")
+        else:
+            highest=Assignment.assignment[0]
+       
+            for assignment in Assignment.assignment:
+                if assignment.calculate_percent()>highest.calculate_percent():
+                    highest=assignment
+            print(f'Your highest scoring assignment is {assignment.subject} with an average peecent of {highest.calculate_percent()} ')
+        
+       
     
- 
-def highest_scoring_assignment():
-    s_assignment=assignment.sort(reverse=True)
-    for s_assignment in Assignment.assignment:
-        pass
-    
+        #lowest scoring assignment    
+        if Assignment.number_of_Assignment==0:
+                    print("No assignemnt to evaluate")
+        else:
+            lowest=Assignment.assignment[0]
+               
+            for assignment in Assignment.assignment:
+                if assignment.calculate_percent()<lowest.calculate_percent():
+                            lowest=assignment
+            print(f'Your lowest scoring assignment is {assignment.subject} with an average peecent of {lowest.calculate_percent()} ')
+
         
     
   

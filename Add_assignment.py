@@ -3,7 +3,7 @@ class Assignment:
     number_of_Assignment=0    
     assignment=[] 
     total_grade=0
- 
+    
     def __init__(self,subject,title,score,max_score,due_date,type) :
         self.subject=subject.lower().strip()
         self.title=title.lower().strip()
