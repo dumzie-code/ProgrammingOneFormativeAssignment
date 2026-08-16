@@ -11,13 +11,7 @@ class Assignment:
         self.max_score=max_score
         self.due_date=due_date
         self.type=type #homework' or 'exam'
-        self.add_Assignment()
-    def add_Assignment(self):
-            Assignment.number_of_Assignment+=1
-            print("Assignment added successfully")
-            Assignment.assignment.append(self)
-            print()
-           
+        
     def calculate_percent(self):
         #ensuring method does not return error if score and max score =None
         if self.score==None and self.max_score==None:
@@ -77,3 +71,5 @@ class Exam(Assignment):
             type=cls.__name__
             return cls(subject,title,type,due_date,score,max_score)
                   
+                  
+                

@@ -1,12 +1,10 @@
 from Assignment import Assignment
 from Assignment import Homework
 from Assignment import Exam
-from grade_tracker import list_assignment
-from grade_tracker import filter_by_Exam
-from grade_tracker import filter_by_subject
-from grade_tracker import filter_by_Homework
-from grade_tracker import filter_by_duedate
-from grade_tracker import overall_average
+
+from grade_tracker import Grade_tracker
+# CREATE GRADE TRACKER
+tracker = Grade_tracker()
 def show_menu():
     choice=0
     while choice <6:
@@ -32,22 +30,22 @@ def show_menu():
         elif choice==2:
             Exam.create_new()
         elif choice==3:
-            list_assignment()
+            tracker.list_assignment()
         elif choice==4:
             print("1.Filter by subject\n2.Filter by Homework\n3.Filter by Exam\n4.Filter by Due date\n")
             enter=int(input("Select an action: "))
             print()
             if enter==1:
-                filter_by_subject() 
+                tracker.filter_by_subject() 
             elif enter==2:
-                filter_by_Homework()
+                tracker.filter_by_Homework()
             elif enter==3:
-                filter_by_Exam()
+                tracker.filter_by_Exam()
             elif enter==4:
-                filter_by_duedate()
+                tracker.filter_by_duedate()
    
         elif choice==5:
-            overall_average()
+            tracker.overall_average()
             
         elif choice==6:
             exit
