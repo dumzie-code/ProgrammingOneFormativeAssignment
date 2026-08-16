@@ -11,6 +11,14 @@ class Assignment:
         self.max_score=max_score
         self.due_date=due_date
         self.type=type #homework' or 'exam'
+        self.add_Assignment()
+        
+    def add_Assignment(self):
+                Assignment.number_of_Assignment+=1
+                print("Assignment added successfully")
+                Assignment.assignment.append(self)
+                print()
+            
         
     def calculate_percent(self):
         #ensuring method does not return error if score and max score =None
@@ -49,7 +57,7 @@ class Homework(Assignment):
                 else:
                    break
             except ValueError:
-                due_date_input = input("Invalid format. Please try again with this format date as, YYYY-MM-DD: ")
+                due_date_input= input("Invalid format. Please try again with this format date as, YYYY-MM-DD: ")
         
         
         type=cls.__name__
