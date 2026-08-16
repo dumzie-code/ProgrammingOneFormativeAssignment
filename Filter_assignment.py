@@ -3,7 +3,7 @@ from Add_assignment import Homework
 from Add_assignment import Exam
 from datetime import datetime
 
-
+#Filter by subject
 def filter_by_subject():
     subject=input('Enter a subject: ')
     for assignment in Assignment.assignment:
@@ -19,10 +19,10 @@ def filter_by_subject():
                 print(f"Filtered by{subject}\n""No assignments found under this type\n")
                 print()
                            
-            print()
+        
                        
     
-
+#filter by Exam
 def filter_by_Exam ():
     for assignment in Assignment.assignment:
         if assignment.type=="Exam":
@@ -34,12 +34,12 @@ def filter_by_Exam ():
                   f"Type: {assignment.type}\n")
     for assignment in Assignment.assignment:
             if assignment.type !='Exam':
-                print("Filtered by Exam\n""Subject has not been added to Grade tracker\n")
+                print("Filtered by Exam\n""No assignments found under this type\n")
                 print()
                            
-            print()
+
             
-            
+#filter by homework          
 def filter_by_Homework():
     for assignment in Assignment.assignment:
         if assignment.type=="Homework":

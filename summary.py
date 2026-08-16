@@ -4,6 +4,8 @@ number_of_Assignment=0
 
 
 def overall_average():
+    if Assignment.number_of_Assignment==0:
+        print("There is no summary to show. Please add an assignment first")
        # Overall average
         total_grade=0
         grade=0

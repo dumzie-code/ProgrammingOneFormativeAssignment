@@ -5,12 +5,14 @@ from list_assignment import list_assignment
 from Filter_assignment import filter_by_Exam
 from Filter_assignment import filter_by_subject
 from Filter_assignment import filter_by_Homework
+from Filter_assignment import filter_by_duedate
 from summary import overall_average
 def welcome():
     choice=0
     while choice <6:
-        print("1.Add homework\n2.Add exam\n3.List Assignments\n4.Filter\n5.Summary\n6.Exit\n")
-        choice=int(input("Select an action: "))
+        print("Welcome to your assignment/grade tracker")
+        print("1.Add homework\n2.Add exam\n3.List Assignments\n4.Filter(by subject/Homework/exam/Due date\n5.Summary\n6.Exit\n")
+        choice=int(input("Select an action(1-6): "))
         print()
         if choice==1:
             Homework.create_new()
@@ -28,6 +30,9 @@ def welcome():
                 filter_by_Homework()
             elif enter==3:
                 filter_by_Exam()
+            elif enter==4:
+                filter_by_duedate()
+
             
         if choice==5:
             overall_average()

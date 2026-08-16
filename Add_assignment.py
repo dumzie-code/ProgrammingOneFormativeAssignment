@@ -4,9 +4,11 @@ class Assignment:
     assignment=[] 
     total_grade=0
     
-    def __init__(self,subject,title,due_date,type) :
+    def __init__(self,subject,title, due_date,type,score=None,max_score=None) :
         self.subject=subject.lower().strip()
         self.title=title.lower().strip()
+        self.score=score
+        self.max_score=max_score
         self.due_date=due_date
         self.type=type #homework' or 'exam'
         self.add_Assignment()
@@ -17,29 +19,52 @@ class Assignment:
         print("Assignment added")
         Assignment.assignment.append(self)
         print()
-        
-    @classmethod
-    def create_new(cls):
-        subject=input("Enter a subject: ")
-        title=input("Enter a title: ")
-        due_date=input("Enter the due date(YYYY-MM-DD): ")
-        subject=input("Enter a subject: ")
-        title=input("Enter a title: ")
-        due_date=input("Enter the due date(YYYY-MM-DD): ")
-        
-        
-        type=cls.__name__
-        return cls(subject,title,due_date,type)
     
+        
+           
     def calculate_percent(self):
+        #ensuring method does not return error if score and max score =
+        if self.score==None and self.max_score==None:
+            return None
+        else: 
             return(self.score/self.max_score*100)
                     
                                    
     
         
 class Homework(Assignment):
-    pass
-
+    @classmethod
+    def create_new(cls):
+        subject=input("Enter a subject: ")
+        title=input("Enter a title: ")
+        score_input=input("Enter a score(press enter if not graded): ")
+        if score_input=="":
+            score=None
+            max_score=None
+        else:  
+            score=float(score_input)  
+            max_score=float(input("Enter the max score: "))
+            #ensuring score does not exceed max score
+            while score>max_score:
+                print("Sorry score can not be greater than max score. Try again!")
+                score=float(input("Enter a score: "))
+        due_date=input("Enter the due date(YYYY-MM-DD): ")
+        type=cls.__name__
+        return cls(subject,title,due_date,type,score,max_score,)
+              
 
 class Exam(Assignment):
-    pass
+    @classmethod
+    def create_new(cls):
+            subject=input("Enter a subject: ")
+            title=input("Enter a title: ")
+            score=input("Enter a score: ")
+            max_score=float(input("Enter the max score: "))
+            #ensuring score does not exceed max score
+            while score>max_score:
+                print("Sorry score can not be greater than max score. Try again!")
+                score=input("Enter a score: ")
+            due_date=input("Enter the due date(YYYY-MM-DD): ")
+            type=cls.__name__
+            return cls(subject,title,due_date,type,score,max_score,)
+                  
