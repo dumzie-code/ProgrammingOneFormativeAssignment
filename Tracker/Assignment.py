@@ -45,7 +45,7 @@ class Homework(Assignment):
                 due_date = datetime.strptime(due_date_input, "%Y-%m-%d").date()
                 if due_date<datetime.today().date():
                     print("Due date cannot be befor today's date.")
-                    due_date=input("Enter another date(YYYY-MM-DD: ")
+                    due_date_input=input("Enter another date(YYYY-MM-DD: ")
                 else:
                    break
             except ValueError:
