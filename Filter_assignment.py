@@ -16,7 +16,7 @@ def filter_by_subject():
                        f"Type: {assignment.type}\n")
     for assignment in Assignment.assignment:
             if assignment.subject !=subject.lower().strip():
-                print(f"Filtered by{subject}\n""No assignments found under this type\n")
+                print(f"Filtered by{subject}\n""No assignments found under this subject\n")
                 print()
                            
         
