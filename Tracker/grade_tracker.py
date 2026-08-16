@@ -1,22 +1,14 @@
-from Tracker.Assignment import Assignment
-from Tracker.Assignment import Assignment
-from Tracker.Assignment import Homework
-from Tracker.Assignment import Exam
+
+from Assignment import Assignment
+from Assignment import Homework
+from Assignment import Exam
 from datetime import datetime
 
-class Grade_tracker(Assignment):
+class Grade_tracker():
     def __init__(self):
-         self.add_Assignment()
-
-            
-                
-    def add_Assignment(self):
-        Assignment.number_of_Assignment+=1
-        print("Assignment added successfully")
-        Assignment.assignment.append(self)
-        print()
-        
-
+        pass
+    
+#FILTERING FUNCTIONS
 #Filter by subject
 def filter_by_subject():
     subject=input('Enter a subject: ')
@@ -24,44 +16,48 @@ def filter_by_subject():
     
     for assignment in Assignment.assignment:
         if assignment.subject==subject.lower().strip():
-            found=True
-            print(f"Filtered by {subject}")
+           
+            if not found:
+                print(f"Filtered by {subject}\n")
+
+            found = True
+
             print( f"Summary of {assignment.subject}: {assignment.title}\n"
                        f"Subject: {assignment.subject}\n"
                        f"Score: {assignment.score}/{assignment.max_score}\n"
                        f"Due date: {assignment.due_date}\n"
                        f"Type: {assignment.type}\n")
     
-        if found==False:
-            print(f"Filtered by {subject}\n""No assignments found under this subject\n")
+    if not found:
+        print(f"Filtered by {subject}\n"
+            "No assignments found under this subject\n")
+        
     
     print()
                            
-        
-                       
-    
+            
 #filter by Exam
 def filter_by_Exam ():
     found=False
    
     for assignment in Assignment.assignment:
         if assignment.type=="Exam":
+            if not found:
+                print("Filtered by Exam\n")
             found=True
-            print(f"Filtered by Exam\n"
-                  f"Summary of {assignment.subject}: {assignment.title}\n"
-                  f"Subject: {assignment.subject}\n"
-                  f"Score: {assignment.score}/{assignment.max_score}\n"
-                  f"Due date: {assignment.due_date}\n"
-                  f"Type: {assignment.type}\n")
+            print(f"Summary of {assignment.subject}: {assignment.title}\n"
+                f"Subject: {assignment.subject}\n"
+                f"Score: {assignment.score}/{assignment.max_score}\n"
+                f"Due date: {assignment.due_date}\n"
+                f"Type: {assignment.type}\n")
             
      
-        if found==False:
+    if not found:
             print("Filtered by Exam\n""No assignments found under this type\n")
 
     print()
                            
-
-            
+   
 #filter by homework          
 def filter_by_Homework():
     found=False
@@ -75,31 +71,34 @@ def filter_by_Homework():
                  f"Due date: {assignment.due_date}\n"
                  f"Type: {assignment.type}\n")
         
-        if found==False:
+    if not found:
             print("Filtered by Homework\n""No assignments found under this type\n")
             print()
-        print()
-                       
+        
+ #Filter by Due date                      
 def filter_by_duedate():
     month=int(input('Enter a month(01-12): '))
     found=False
     for assignment in Assignment.assignment:
         if assignment.due_date.month==month:
+            if not found:
+                print(f"Filtered by {month}rd month of the year\n")
+            
             found=True
-            print(f"Filtered by {month}rd month of the year\n"
+            print(
                   f"Summary of {assignment.subject}: {assignment.title}\n"
                   f"Subject: {assignment.subject}\n"
                   f"Score: {assignment.score}/{assignment.max_score}\n"
                   f"Due date: {assignment.due_date}\n"
                   f"Type: {assignment.type}\n")
             
-        if found==False:
+    if found==False:
             print("No assignment found for this month")
             print()
-            
+#LISTING ASSIGNMENTS            
 def list_assignment():
+    print("Below are the list of all assignments")
     for assignment in Assignment.assignment:
-        print("Below are the list of all assignments")
         print(f"Summary of {assignment.subject}:{assignment.title}")
         print(f"Subject:{assignment.subject}")
         print(f"Score:{assignment.score}/{assignment.max_score}")  
@@ -108,11 +107,8 @@ def list_assignment():
         print()
 list_assignment()
 
-from Tracker.Assignment import Assignment
-assignment=[]
-number_of_Assignment=0    
-
-
+#GRADE SUMMARY
+#Calculating overall average
 def overall_average():
     if Assignment.number_of_Assignment==0:
         print("There is no summary to show. Please add an assignment first")
@@ -141,6 +137,8 @@ def overall_average():
         Subjects.add(assignment.subject)
         
     #per subject average
+    print(f"Your per subject average grade is shown below" )
+    print()
     for Subject in Subjects:
         grade=0
         count=0 
@@ -151,7 +149,6 @@ def overall_average():
                     count+=1
         if count > 0:
                 Average=grade/count
-                print(f"Your per subject average grade is shown below" )
                 print(f"{Subject}:{Average}")
                 print()
     #highest scoring assignment
@@ -184,18 +181,7 @@ def overall_average():
     else:
         print("Your top 5 performing assignments are :")
         assignmentnew=sorted(Assignment.assignment,key=lambda assignment:assignment.calculate_percent(),reverse=True)
-        for assignment in assignmentnew:
+        for assignment in assignmentnew[:5]:
             print(f"{assignment.subject[0]}:{assignment.calculate_percent()}")
             print()
-        if Assignment.number_of_Assignment>2:
-            print(f"{assignment.subject[1]}:{assignment.calculate_percent()}")
-            print()
-        if Assignment.number_of_Assignment>3:
-            print(f"{assignment.subject[2]}:{assignment.calculate_percent()}")
-            print()
-        if Assignment.number_of_Assignment>4:
-            print(f"{assignment.subject[3]}:{assignment.calculate_percent()}")
-            print()
-        if Assignment.number_of_Assignment>5:
-            print(f"{assignment.subject[4]}:{assignment.calculate_percent()}")
-            print()
+        

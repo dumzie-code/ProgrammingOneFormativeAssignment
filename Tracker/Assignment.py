@@ -11,7 +11,12 @@ class Assignment:
         self.max_score=max_score
         self.due_date=due_date
         self.type=type #homework' or 'exam'
-       
+        self.add_Assignment()
+    def add_Assignment(self):
+            Assignment.number_of_Assignment+=1
+            print("Assignment added successfully")
+            Assignment.assignment.append(self)
+            print()
            
     def calculate_percent(self):
         #ensuring method does not return error if score and max score =None
@@ -68,7 +73,7 @@ class Exam(Assignment):
             while score>max_score:
                 print("Sorry score can not be greater than max score. Try again!")
                 score=float(input("Enter a score: "))
-            due_date=input("Enter the due date(YYYY-MM-DD): ")
+            due_date_input=input("Enter the due date(YYYY-MM-DD): ")
             while True:
                 try:
                     due_date = datetime.strptime(due_date_input, "%Y-%m-%d").date()
