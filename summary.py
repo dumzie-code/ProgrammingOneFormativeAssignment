@@ -14,6 +14,7 @@ def overall_average():
             average=total_grade/Assignment.number_of_Assignment
         print(f"Your overall average grade is {average}")
         if float(average < 50):
+            #grade threshold
             print("You are below average. you need to sit up!")
             
         #getting all unique subject  
@@ -32,7 +33,7 @@ def overall_average():
                     count+=1
             if count > 0:
                 Average=grade/count
-                print(f"Your per subject average grade in {Subject} is:" )
+                print(f"Your per subject average grade is shown below" )
                 print(f"{Subject}:{Average}")
         #highest scoring assignment
         if Assignment.number_of_Assignment==0:
@@ -56,9 +57,21 @@ def overall_average():
             for assignment in Assignment.assignment:
                 if assignment.calculate_percent()<lowest.calculate_percent():
                             lowest=assignment
-            print(f'Your lowest scoring assignment is {assignment.subject} with an average peecent of {lowest.calculate_percent()} ')
+            print(f'Your lowest scoring assignment is {assignment.subject} with an average peecent of {lowest.calculate_percent()}')
 
-        
-    
-  
-  
+        #top performing subjects
+        if Assignment.number_of_Assignment==0:
+                            print("No assignemnt to evaluate")
+        else:
+            print("Your top 5 performing assignments are :")
+            assignmentnew=sorted(Assignment.assignment,key=lambda assignment:assignment.calculate_percent(),reverse=True)
+            for assignment in assignmentnew:
+                print(f"{assignment.subject[0]}:{assignment.calculate_percent()}")
+            if Assignment.number_of_Assignment>2:
+                print(f"{assignment.subject[1]}:{assignment.calculate_percent()}")
+            if Assignment.number_of_Assignment>3:
+                print(f"{assignment.subject[2]}:{assignment.calculate_percent()}")
+            if Assignment.number_of_Assignment>4:
+                print(f"{assignment.subject[3]}:{assignment.calculate_percent()}")
+            if Assignment.number_of_Assignment>5:
+                print(f"{assignment.subject[4]}:{assignment.calculate_percent()}")

@@ -4,11 +4,9 @@ class Assignment:
     assignment=[] 
     total_grade=0
     
-    def __init__(self,subject,title,score,max_score,due_date,type) :
+    def __init__(self,subject,title,due_date,type) :
         self.subject=subject.lower().strip()
         self.title=title.lower().strip()
-        self.score=float(score)
-        self.max_score=float(max_score)
         self.due_date=due_date
         self.type=type #homework' or 'exam'
         self.add_Assignment()
@@ -24,11 +22,14 @@ class Assignment:
     def create_new(cls):
         subject=input("Enter a subject: ")
         title=input("Enter a title: ")
-        score=input("Enter a score: ")
-        max_score=input("Enter the max score:" )
         due_date=input("Enter the due date(YYYY-MM-DD): ")
+        subject=input("Enter a subject: ")
+        title=input("Enter a title: ")
+        due_date=input("Enter the due date(YYYY-MM-DD): ")
+        
+        
         type=cls.__name__
-        return cls(subject,title,score,max_score,due_date,type)
+        return cls(subject,title,due_date,type)
     
     def calculate_percent(self):
             return(self.score/self.max_score*100)
@@ -37,6 +38,8 @@ class Assignment:
     
         
 class Homework(Assignment):
-   pass
+    pass
+
+
 class Exam(Assignment):
-   pass
+    pass
