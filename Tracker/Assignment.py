@@ -4,7 +4,7 @@ class Assignment:
     assignment=[] 
     total_grade=0
     
-    def __init__(self,subject,title, due_date,type,score=None,max_score=None) :
+    def __init__(self,subject,title,type,due_date=None,score=None,max_score=None) :
         self.subject=subject.lower().strip()
         self.title=title.lower().strip()
         self.score=score
@@ -59,7 +59,7 @@ class Homework(Assignment):
         
         
         type=cls.__name__
-        return cls(subject,title,due_date,type,score,max_score,)
+        return cls(subject,title,type,due_date,score,max_score)
               
 
 class Exam(Assignment):
@@ -73,18 +73,7 @@ class Exam(Assignment):
             while score>max_score:
                 print("Sorry score can not be greater than max score. Try again!")
                 score=float(input("Enter a score: "))
-            due_date_input=input("Enter the due date(YYYY-MM-DD): ")
-            while True:
-                try:
-                    due_date = datetime.strptime(due_date_input, "%Y-%m-%d").date()
-                    if due_date<datetime.today().date():
-                        print("Due date cannot be befor today's date.")
-                        due_date=input("Enter another date(YYYY-MM-DD: ")
-                    else:
-                        break
-                except ValueError:
-                    due_date_input = input("Invalid format. Please try again with this format date as, YYYY-MM-DD: ")
-                    
+            due_date=None
             type=cls.__name__
-            return cls(subject,title,due_date,type,score,max_score,)
+            return cls(subject,title,type,due_date,score,max_score)
                   

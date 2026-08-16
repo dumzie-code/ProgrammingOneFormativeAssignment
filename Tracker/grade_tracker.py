@@ -76,36 +76,49 @@ def filter_by_Homework():
             print()
         
  #Filter by Due date                      
+
 def filter_by_duedate():
-    month=int(input('Enter a month(01-12): '))
-    found=False
+    month = int(input('Enter a month(01-12): '))
+    found = False
+
     for assignment in Assignment.assignment:
-        if assignment.due_date.month==month:
-            if not found:
-                print(f"Filtered by {month}rd month of the year\n")
-            
-            found=True
-            print(
-                  f"Summary of {assignment.subject}: {assignment.title}\n"
-                  f"Subject: {assignment.subject}\n"
-                  f"Score: {assignment.score}/{assignment.max_score}\n"
-                  f"Due date: {assignment.due_date}\n"
-                  f"Type: {assignment.type}\n")
-            
-    if found==False:
-            print("No assignment found for this month")
-            print()
+
+        if assignment.due_date is not None:
+
+            if assignment.due_date.month == month:
+
+                if not found:
+                    print(f"Filtered by month {month}\n")
+
+                found = True
+
+                print(
+                    f"Summary of {assignment.subject}: {assignment.title}\n"
+                    f"Subject: {assignment.subject}\n"
+                    f"Score: {assignment.score}/{assignment.max_score}\n"
+                    f"Due date: {assignment.due_date}\n"
+                    f"Type: {assignment.type}\n"
+                )
+
+    if not found:
+        print("No assignments found for this month")
+
+    print()
 #LISTING ASSIGNMENTS            
 def list_assignment():
-    print("Below are the list of all assignments")
+    if Assignment.number_of_Assignment == 0:
+        print("No assignments have been added yet.")
+
+
+    print("Below is the list of all assignments\n")
     for assignment in Assignment.assignment:
         print(f"Summary of {assignment.subject}:{assignment.title}")
         print(f"Subject:{assignment.subject}")
+        print(f"Title:{assignment.title}")
         print(f"Score:{assignment.score}/{assignment.max_score}")  
         print(f"Due date:{assignment.due_date}")
         print(f"Type:{assignment.type}")
         print()
-list_assignment()
 
 #GRADE SUMMARY
 #Calculating overall average
