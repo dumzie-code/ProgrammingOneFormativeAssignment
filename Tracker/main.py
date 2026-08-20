@@ -10,7 +10,7 @@ def show_menu():
     choice=0
     while choice <6:
         print("Welcome to your assignment/grade tracker. You can add assignments and exams to keep track of your assignments,and track your grades performance.")
-        print("Assignement/Grade Tracker menu")
+        print("Assignment/Grade Tracker menu")
         print("1.Add homework\n2.Add exam\n3.List Assignments\n4.Filter(by subject/Homework/exam/Due date\n5.Summary\n6.Exit\n")
     
         print()
