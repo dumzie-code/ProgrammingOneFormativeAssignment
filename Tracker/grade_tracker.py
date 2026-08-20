@@ -6,13 +6,15 @@ from datetime import datetime
 
 class Grade_tracker():
     def __init__(self):
-        pass
-      
-    def add_Assignment(self):
-            Assignment.number_of_Assignment+=1
-            print("Assignment added successfully")
-            Assignment.assignment.append(self)
-            print()
+       pass
+
+    
+    def add_Assignment(self,assignment):
+        Assignment.number_of_Assignment+=1
+        print("Assignment added successfully")
+        Assignment.assignment.append(assignment)
+        print()
+            
         
     
 #FILTERING FUNCTIONS
@@ -105,8 +107,9 @@ class Grade_tracker():
                         f"Score: {assignment.score}/{assignment.max_score}\n"
                         f"Due date: {assignment.due_date}\n"
                         f"Type: {assignment.type}\n" )
-
+                print()
         if not found:
+            print(f"Filtered by month {month}")
             print("No assignments found for this month")
 
     print()
@@ -114,7 +117,7 @@ class Grade_tracker():
     def list_assignment(self):
         if Assignment.number_of_Assignment == 0:
             print("No assignments have been added yet.")
-
+            return
 
         print("Below is the list of all assignments\n")
         for assignment in Assignment.assignment:
@@ -131,76 +134,79 @@ class Grade_tracker():
     def overall_average(self):
         if Assignment.number_of_Assignment==0:
             print("There is no summary to show. Please add an assignment first")
+            return
+         # GET ONLY GRADED ASSIGNMENTS
+        graded_assignments = []
         for assignment in Assignment.assignment:
-            if assignment.score==None:
-                print("There is no summary to show for the assignnments added")
+           if assignment.calculate_percent() is not None:
+                graded_assignments.append(assignment)
+
+        if len(graded_assignments) == 0:
+            print("There are no graded assignments to calculate a summary.")
+            return
             
         # Overall average
         total_grade=0
         grade=0
-        if Assignment.number_of_Assignment==0:
-            return 0
-        for assignment in Assignment.assignment:
-            if assignment.score==None:
-                return None
-            total_grade= total_grade+assignment.calculate_percent()
-            average=total_grade/Assignment.number_of_Assignment
-        print(f"Your overall average grade is {average}")
+        for assignment in graded_assignments:
+            total_grade += assignment.calculate_percent()
+
+        average = total_grade / len(graded_assignments)
+
+        print(f"Your overall average grade is {average:.2f}%")
+       
         if float(average < 50):
             #grade threshold
             print("You are below average. you need to sit up!")
-            
+          #per subject average  
         #getting all unique subject  
         Subjects=set()
-        for assignment in Assignment.assignment:
+        for assignment in graded_assignments:
             Subjects.add(assignment.subject)
         
-        #per subject average
+        
         print(f"Your per subject average grade is shown below" )
         print()
         for Subject in Subjects:
             grade=0
             count=0 
-            for assignment in Assignment.assignment:
+            for assignment in graded_assignments:
                 
                 if assignment.subject.lower().strip()==Subject.lower().strip():
                     grade= grade+assignment.calculate_percent()
                     count+=1
             if count > 0:
                 Average=grade/count
-                print(f"{Subject}:{Average}")
+                print(f"{Subject}:{Average:.2f}%")
                 print()
-        #highest scoring assignment
-        if Assignment.number_of_Assignment==0:
-            print("No assignment to evaluate")
-        else:
-            highest=Assignment.assignment[0]
-       
-            for assignment in Assignment.assignment:
-                if assignment.calculate_percent()>highest.calculate_percent():
-                    highest=assignment
-            print(f'Your highest scoring assignment is {assignment.subject} with an average percent of {highest.calculate_percent()} ')
-        
-       
-    
-        #lowest scoring assignment    
-        if Assignment.number_of_Assignment==0:
-            print("No assignemnt to evaluate")
-        else:
-            lowest=Assignment.assignment[0]
-               
-            for assignment in Assignment.assignment:
-                if assignment.calculate_percent()<lowest.calculate_percent():
-                            lowest=assignment
-            print(f'Your lowest scoring assignment is {assignment.subject} with an average percent of {lowest.calculate_percent()}')
+        # HIGHEST AND LOWEST SCORING ASSIGNMENTS
+
+
+        # HIGHEST SCORING ASSIGNMENT
+        highest = graded_assignments[0]
+
+        for assignment in graded_assignments:
+            if assignment.calculate_percent() > highest.calculate_percent():
+                highest = assignment
+
+        print(f"Your highest scoring assignment is {highest.subject} "
+        f"with a score of {highest.calculate_percent():.2f}%")
+
+        # LOWEST SCORING ASSIGNMENT
+        lowest = graded_assignments[0]
+
+        for assignment in graded_assignments:
+            if assignment.calculate_percent() < lowest.calculate_percent():
+                lowest = assignment
+
+        print(f"Your lowest scoring assignment is {lowest.subject} "
+        f"with a score of {lowest.calculate_percent():.2f}%")
 
         #top performing subjects
-        if Assignment.number_of_Assignment==0:
-            print("No assignemnt to evaluate")
-        else:
-            print("Your top 5 performing assignments are :")
-            assignmentnew=sorted(Assignment.assignment,key=lambda assignment:assignment.calculate_percent(),reverse=True)
-            for assignment in assignmentnew[:5]:
-                print(f"{assignment.subject[0]}:{assignment.calculate_percent()}")
+        
+        print("Your top 5 performing assignments are :")
+        assignmentnew=sorted(graded_assignments,key=lambda assignment:assignment.calculate_percent(),reverse=True)
+        for assignment in assignmentnew[:5]:
+                print(f"{assignment.subject}:{assignment.calculate_percent():.2f}%")
                 print()
         
